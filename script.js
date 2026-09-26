@@ -1,99 +1,52 @@
-
 let budget = Number(localStorage.getItem("budget")) || 0;
-
 let expenses =
     JSON.parse(localStorage.getItem("expenses")) || [];
-
 let currentFilter = "all";
-
 const expenseForm = document.getElementById("ExpenseForm");
-
 const budgetInput = document.getElementById("Budget");
-
 const categoryInput = document.getElementById("category");
-
 const amountInput = document.getElementById("amount");
-
 const dateInput = document.getElementById("date");
-
 const budgetElement = document.getElementById("budget");
-
 const expenseElement = document.getElementById("expense");
-
 const budgetLeftElement = document.getElementById("budgetLeft");
-
-const transactionList =
-    document.getElementById("transactionList");
-
-const transactionCount =
-    document.getElementById("transactionCount");
-
-
+const transactionList = document.getElementById("transactionList");
+const transactionCount = document.getElementById("transactionCount");
 const today = new Date();
-
 const year = today.getFullYear();
 
-const month =
-    String(today.getMonth() + 1).padStart(2, "0");
+const month =  String(today.getMonth() + 1).padStart(2, "0");
+const day =  String(today.getDate()).padStart(2, "0");
 
-const day =
-    String(today.getDate()).padStart(2, "0");
-
-dateInput.value =
-    `${year}-${month}-${day}`;
-
+dateInput.value = `${year}-${month}-${day}`;
 
 // ===============================
 // CREATE CIRCULAR CHART
 // ===============================
-
 function createChart() {
-    let chartBox =
-        document.getElementById("budgetChartBox");
+    let chartBox = document.getElementById("budgetChartBox");
 
     if (!chartBox) {
-
-        chartBox =
-            document.createElement("div");
-
-        chartBox.id =
-            "budgetChartBox";
-
+        chartBox =  document.createElement("div");
+        chartBox.id = "budgetChartBox";
         chartBox.innerHTML = `
-
             <div class="chart-title">
                 <h3>Budget Overview</h3>
                 <p>Budget & Expense</p>
             </div>
-
             <div class="circle-chart">
-
                 <canvas
                     id="budgetChart"
                     width="220"
                     height="220">
                 </canvas>
-
-                
-
             </div>
-
-            
-
         `;
-
-        const leftSection =
-            document.querySelector(".left-section");
-
+        const leftSection = document.querySelector(".left-section");
         leftSection.prepend(chartBox);
-
     }
-
-
     drawChart();
-
 }
-
 // ===============================
 // DRAW CIRCULAR CHART
 // ===============================
